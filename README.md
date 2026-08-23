@@ -1,1 +1,1 @@
-# next-event
+# NextEvent
