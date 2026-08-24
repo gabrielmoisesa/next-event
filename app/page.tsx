@@ -1,11 +1,7 @@
 import React from 'react';
 
 const Page = () => {
-  return (
-    <div>
-      <h1>NextEvent</h1>
-    </div>
-  );
+  return <h1>NextEvent</h1>;
 };
 
 export default Page;
