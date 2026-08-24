@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
-import { Schibsted_Grotesk, Martian_Mono } from 'next/font/google';
+import { Schibsted_Grotesk, Martian_Mono, Geist } from 'next/font/google';
 import './globals.css';
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const schibstedGrotesk = Schibsted_Grotesk({
   variable: '--font-schibsted-grotesk',
@@ -22,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
-      className={`${schibstedGrotesk.variable} ${martianMono.variable} min-h-screen h-full antialiased`}
+      className={cn("min-h-screen", "h-full", "antialiased", schibstedGrotesk.variable, martianMono.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
