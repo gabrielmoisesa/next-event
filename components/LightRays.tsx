@@ -71,6 +71,27 @@ const getAnchorAndDir = (
   }
 };
 
+type Vec2 = [number, number];
+type Vec3 = [number, number, number];
+
+interface Uniforms {
+  iTime: { value: number };
+  iResolution: { value: Vec2 };
+  rayPos: { value: Vec2 };
+  rayDir: { value: Vec2 };
+  raysColor: { value: Vec3 };
+  raysSpeed: { value: number };
+  lightSpread: { value: number };
+  rayLength: { value: number };
+  pulsating: { value: number };
+  fadeDistance: { value: number };
+  saturation: { value: number };
+  mousePos: { value: Vec2 };
+  mouseInfluence: { value: number };
+  noiseAmount: { value: number };
+  distortion: { value: number };
+}
+
 const LightRays: React.FC<LightRaysProps> = ({
   raysOrigin = 'top-center',
   raysColor = DEFAULT_COLOR,
@@ -87,12 +108,12 @@ const LightRays: React.FC<LightRaysProps> = ({
   className = '',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const uniformsRef = useRef<any>(null);
+  const uniformsRef = useRef<Uniforms | null>(null);
   const rendererRef = useRef<Renderer | null>(null);
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const smoothMouseRef = useRef({ x: 0.5, y: 0.5 });
   const animationIdRef = useRef<number | null>(null);
-  const meshRef = useRef<any>(null);
+  const meshRef = useRef<Mesh | null>(null);
   const cleanupFunctionRef = useRef<(() => void) | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -250,7 +271,7 @@ void main() {
   gl_FragColor  = color;
 }`;
 
-      const uniforms = {
+      const uniforms: Uniforms = {
         iTime: { value: 0 },
         iResolution: { value: [1, 1] },
 
@@ -445,7 +466,7 @@ void main() {
   return (
     <div
       ref={containerRef}
-      className={`pointer-events-none relative z-[3] h-full w-full overflow-hidden ${className}`.trim()}
+      className={`w-full h-full pointer-events-none z-[3] overflow-hidden relative ${className}`.trim()}
     />
   );
 };
