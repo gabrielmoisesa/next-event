@@ -4,6 +4,10 @@ import Link from 'next/link.js';
 interface Props {
   title: string;
   image: string;
+  slug: string;
+  location: string;
+  date: string;
+  time: string;
 }
 
 const EventCard = ({ title, image }: Props) => {
