@@ -4,8 +4,8 @@ import { Event } from './event.model';
 export interface IBooking {
   eventId: Types.ObjectId;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
