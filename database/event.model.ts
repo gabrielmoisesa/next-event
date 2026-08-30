@@ -199,7 +199,7 @@ const eventSchema = new Schema<IEvent>(
 );
 
 // Slug generation keeps URLs stable and readable while still allowing easy updates.
-eventSchema.pre('save', async function (): Promise<void> {
+eventSchema.pre('validate', function (): void {
   // Only regenerate the slug when the title changes; otherwise we avoid needless rewrites.
   if (this.isModified('title') || !this.slug) {
     this.slug = slugify(this.title);
