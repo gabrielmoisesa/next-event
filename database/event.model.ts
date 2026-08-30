@@ -15,8 +15,8 @@ export interface IEvent {
   agenda: string[];
   organizer: string;
   tags: string[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const normalizeTime = (value: string): string => {
