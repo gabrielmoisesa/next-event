@@ -21,7 +21,14 @@ if (!MONGODB_URI) {
 
 // Reuse the cached connection across requests in development and during module
 // re-evaluation. If there is no cached instance, create one.
-const cached = (globalThis.mongoConnectionCache ??= {
+const globalWithMongo = globalThis as typeof globalThis & {
+  mongoConnectionCache?: {
+    conn: Mongoose | null;
+    promise: Promise<Mongoose> | null;
+  };
+};
+
+const cached = (globalWithMongo.mongoConnectionCache ??= {
   conn: null,
   promise: null,
 });
