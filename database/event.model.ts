@@ -31,11 +31,15 @@ const normalizeTime = (value: string): string => {
   let hours = Number(rawHour);
   const minutes = Number(rawMinute);
 
-  if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
-    throw new Error('Time must be a valid 24-hour or 12-hour value.');
+  if (minutes < 0 || minutes > 59) {
+    throw new Error('Minutes must be between 00 and 59.');
   }
 
   if (meridiem) {
+    if (hours < 1 || hours > 12) {
+      throw new Error('Hours must be between 1 and 12 when using AM/PM.');
+    }
+
     const upperMeridiem = meridiem.toUpperCase();
 
     if (upperMeridiem === 'AM') {
@@ -45,6 +49,8 @@ const normalizeTime = (value: string): string => {
     if (upperMeridiem === 'PM') {
       hours = hours === 12 ? 12 : hours + 12;
     }
+  } else if (hours < 0 || hours > 23) {
+    throw new Error('Hours must be between 0 and 23 for 24-hour time.');
   }
 
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
